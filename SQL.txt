@@ -757,4 +757,158 @@ mysql> select * from faculty f
 +------+--------+--------+--------+-----+-------+
 6 rows in set (0.00 sec)
 
+mysql> select * from employees;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.45 sec)
+
+mysql> select id, name, department, city
+    -> from employees
+    -> where city='pune' AND department='IT';
++-----+---------------+------------+------+
+| id  | name          | department | city |
++-----+---------------+------------+------+
+| 101 | Dhiraj Bonde  | IT         | Pune |
+| 105 | Milind Shinde | IT         | Pune |
++-----+---------------+------------+------+
+2 rows in set (0.03 sec)
+
+mysql> select id, name, department, city
+    -> from employees
+    -> where city='pune' OR  department='IT';
++-----+---------------+-------------+------+
+| id  | name          | department  | city |
++-----+---------------+-------------+------+
+| 101 | Dhiraj Bonde  | IT          | Pune |
+| 102 | Hemant Wani   | 3D Printing | Pune |
+| 105 | Milind Shinde | IT          | Pune |
++-----+---------------+-------------+------+
+3 rows in set (0.05 sec)
+
+mysql> select id, name, department, city
+    -> from employees
+    -> where NOT city='Pune';
++-----+--------------+-----------------+----------+
+| id  | name         | department      | city     |
++-----+--------------+-----------------+----------+
+| 103 | Nikhil Patil | Lead Generation | Jalgaon  |
+| 104 | Amar Jadhav  | Food            | Bhusawal |
++-----+--------------+-----------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select name from employees
+    -> where name LIKE 'a%';
++-------------+
+| name        |
++-------------+
+| Amar Jadhav |
++-------------+
+1 row in set (0.05 sec)
+
+mysql> select name from employees
+    -> where name LIKE '%a';
+Empty set (0.00 sec)
+
+mysql> select name from employees
+    -> where name LIKE '%e';
++---------------+
+| name          |
++---------------+
+| Dhiraj Bonde  |
+| Milind Shinde |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> select name from employees
+    -> where name LIKE '%il%';
++---------------+
+| name          |
++---------------+
+| Nikhil Patil  |
+| Milind Shinde |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> select name from employees
+    -> where name NOT LIKE '%il%';
++--------------+
+| name         |
++--------------+
+| Dhiraj Bonde |
+| Hemant Wani  |
+| Amar Jadhav  |
++--------------+
+3 rows in set (0.02 sec)
+
+mysql> select name from employees
+    -> where name NOT LIKE 'a___%';
++---------------+
+| name          |
++---------------+
+| Dhiraj Bonde  |
+| Hemant Wani   |
+| Nikhil Patil  |
+| Milind Shinde |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> select name from employees
+    -> where name  LIKE 'a___%';
++-------------+
+| name        |
++-------------+
+| Amar Jadhav |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select city from employees
+    -> where city LIKE 'PU%';
++------+
+| city |
++------+
+| Pune |
+| Pune |
+| Pune |
++------+
+3 rows in set (0.00 sec)
+
+mysql> where city LIKE 'PU%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where city LIKE 'PU%'' at line 1
+mysql> select city from employees
+    -> where city LIKE '_algaon';
++---------+
+| city    |
++---------+
+| Jalgaon |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select city from employees
+    -> where city LIKE '[PJB]%';
+Empty set (0.00 sec)
+
+mysql> select city from employees
+    -> where city LIKE '[A-J]%';
+Empty set (0.00 sec)
+
+mysql> select name,salary,city
+    -> from employees
+    -> where salary BETWEEN 10000 AND 50000;
++---------------+--------+---------+
+| name          | salary | city    |
++---------------+--------+---------+
+| Dhiraj Bonde  |  20000 | Pune    |
+| Hemant Wani   |  22000 | Pune    |
+| Nikhil Patil  |  28000 | Jalgaon |
+| Milind Shinde |  30000 | Pune    |
++---------------+--------+---------+
+4 rows in set (0.01 sec)
+
 mysql>
