@@ -1,0 +1,308 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.20 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| jalgaonkar         |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
++--------------------+
+6 rows in set (1.74 sec)
+
+mysql> use jalgaonkar;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_jalgaonkar |
++----------------------+
+| employees            |
++----------------------+
+1 row in set (0.86 sec)
+
+mysql> select * from employees;
+Empty set (0.07 sec)
+
+mysql> desc employees;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(20)  | YES  |     | NULL    |       |
+| department   | varchar(20)  | YES  |     | NULL    |       |
+| salary       | int          | YES  |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
+| address      | varchar(100) | YES  |     | NULL    |       |
+| city         | varchar(20)  | YES  |     | NULL    |       |
+| contact_no   | varchar(10)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.30 sec)
+
+mysql> insert into employees values (101,'Dhiraj Bonde','IT',20000,'03/06/2020','Amruta Heights, Warje','Pune',9403943019);
+ERROR 1292 (22007): Incorrect date value: '03/06/2020' for column 'joining_date' at row 1
+mysql> insert into employees values (101,'Dhiraj Bonde','IT',20000,03/06/2020,'Amruta Heights, Warje','Pune',9403943019);
+Query OK, 1 row affected (0.60 sec)
+
+mysql> select * from employees;
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+| id  | name         | department | salary | joining_date | address               | city | contact_no |
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+| 101 | Dhiraj Bonde | IT         |  20000 | 0000-00-00   | Amruta Heights, Warje | Pune | 9403943019 |
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+1 row in set (0.02 sec)
+
+mysql> insert into employees values (101,'Dhiraj Bonde','IT',20000,2020-05-11,'Amruta Heights, Warje','Pune',9403943019);
+ERROR 1292 (22007): Incorrect date value: '2004' for column 'joining_date' at row 1
+mysql> update employees
+    -> set joining_date='2000-02-03'
+    -> where name='Dhiraj Bonde';
+Query OK, 1 row affected (1.31 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+| id  | name         | department | salary | joining_date | address               | city | contact_no |
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+| 101 | Dhiraj Bonde | IT         |  20000 | 2000-02-03   | Amruta Heights, Warje | Pune | 9403943019 |
++-----+--------------+------------+--------+--------------+-----------------------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,2001-05-11,'Student Hostel, Akurdi',Pune,9405239678),(103,'Nikhil Patil','Lead Generation',28000,2000-11-03,'Unity Chember, Jalgaon',Jalgaon,7758880994),(104,'Amar Jadhav','Food',75000,2019-08-17,'Jadhav House,Bhusawal',Bhusawal,8869458712
+    ->
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show databases' at line 3
+mysql> insert into employees values (101,'Dhiraj Bonde','IT',20000,'03/06/2020','Amruta Heights, Warje','Pune',9403943019);
+ERROR 1292 (22007): Incorrect date value: '03/06/2020' for column 'joining_date' at row 1
+mysql> insert into employees values (101,'Dhiraj Bonde','IT',20000,03/06/2020,'Amruta Heights, Warje','Pune',9403943019)
+    ->
+    -> ;
+ERROR 1062 (23000): Duplicate entry '101' for key 'employees.PRIMARY'
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,2001-05-11,'Student Hostel, Akurdi','Pune',9405239678),(103,'Nikhil Patil','Lead Generation',28000,2000-11-03,'Unity Chember, Jalgaon','Jalgaon',7758880994),(104,'Amar Jadhav','Food',75000,2019-08-17,'Jadhav House,Bhusawal','Bhusawal',8869458712),(105,'Milind Shinde','IT',30000,2020-05-27,'Karan Paradise, Pimple Gurav','Pune',8767838869));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,2001-05-11,'Student Hostel, Akurdi','Pune',9405239678),(103,'Nikhil Patil','Lead Generation',28000,2000-11-03,'Unity Chember, Jalgaon','Jalgaon',7758880994),(104,'Amar Jadhav','Food',75000,2019-08-17,'Jadhav House,Bhusawal','Bhusawal',8869458712),(105,'Milind Shinde','IT',30000,2020-05-27,'Karan Paradise, Pimple Gurav','Pune',8767838869));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,2001-05-11,'Student Hostel, Akurdi','Pune',9405239678),(103,'Nikhil Patil','Lead Generation',28000,2000-11-03,'Unity Chember, Jalgaon','Jalgaon',7758880994),(104,'Amar Jadhav','Food',75000,2019-08-17,'Jadhav House,Bhusawal','Bhusawal',8869458712),(105,'Milind Shinde','IT',30000,2020-05-27,'Karan Paradise, Pimple Gurav','Pune',8767838869);
+ERROR 1292 (22007): Incorrect date value: '1985' for column 'joining_date' at row 1
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,2001-05-11,'Student Hostel, Akurdi','Pune',9405239678);
+ERROR 1292 (22007): Incorrect date value: '1985' for column 'joining_date' at row 1
+mysql> insert into employees values(102,'Hemant Wani','3D Printing',22000,'2001-05-11','Student Hostel, Akurdi','Pune',9405239678);
+Query OK, 1 row affected (1.12 sec)
+
+mysql> insert into employees values(103,'Nikhil Patil','Lead Generation',28000,'2000-11-03','Unity Chember, Jalgaon','Jalgaon',7758880994),(104,'Amar Jadhav','Food',75000,'2019-08-17','Jadhav House,Bhusawal','Bhusawal',8869458712),(105,'Milind Shinde','IT',30000,'2020-05-27','Karan Paradise, Pimple Gurav','Pune',8767838869);
+Query OK, 3 rows affected (0.16 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.12 sec)
+
+mysql> select * from employees
+    -> order by city;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.16 sec)
+
+mysql> select * from employees
+    -> order by name,department,salary,city;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.04 sec)
+
+mysql> select * from employees
+    -> order by name desc,city asc;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.03 sec)
+
+mysql> select count(city)
+    -> from employees;
++-------------+
+| count(city) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.06 sec)
+
+mysql> select sum(salary)
+    -> from employees;
++-------------+
+| sum(salary) |
++-------------+
+|      175000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*)
+    -> from employees;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.57 sec)
+
+mysql> select count(distinct name)
+    -> from employees;
++----------------------+
+| count(distinct name) |
++----------------------+
+|                    5 |
++----------------------+
+1 row in set (0.20 sec)
+
+mysql> select count(id) as EmployeeID
+    -> from employees;
++------------+
+| EmployeeID |
++------------+
+|          5 |
++------------+
+1 row in set (0.03 sec)
+
+mysql> select count(id) as EmployeeID
+    -> from employees
+    -> where id=103;
++------------+
+| EmployeeID |
++------------+
+|          1 |
++------------+
+1 row in set (0.08 sec)
+
+mysql> select count(city),salary
+    -> from employees
+    -> group by salary;
++-------------+--------+
+| count(city) | salary |
++-------------+--------+
+|           1 |  20000 |
+|           1 |  22000 |
+|           1 |  28000 |
+|           1 |  75000 |
+|           1 |  30000 |
++-------------+--------+
+5 rows in set (0.13 sec)
+
+mysql> select count(city),city
+    -> from employees
+    -> group by city;
++-------------+----------+
+| count(city) | city     |
++-------------+----------+
+|           3 | Pune     |
+|           1 | Jalgaon  |
+|           1 | Bhusawal |
++-------------+----------+
+3 rows in set (0.06 sec)
+
+mysql> select name,
+    -> from employees
+    -> group by city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employees
+group by city' at line 2
+mysql> select name,city
+    -> from employees
+    -> group by city;
++--------------+----------+
+| name         | city     |
++--------------+----------+
+| Dhiraj Bonde | Pune     |
+| Nikhil Patil | Jalgaon  |
+| Amar Jadhav  | Bhusawal |
++--------------+----------+
+3 rows in set (0.04 sec)
+
+mysql> desc employees;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(20)  | YES  |     | NULL    |       |
+| department   | varchar(20)  | YES  |     | NULL    |       |
+| salary       | int          | YES  |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
+| address      | varchar(100) | YES  |     | NULL    |       |
+| city         | varchar(20)  | YES  |     | NULL    |       |
+| contact_no   | varchar(10)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.75 sec)
+
+mysql> select id,group_concat(salary)
+    -> from employees;
++------+-------------------------------+
+| id   | group_concat(salary)          |
++------+-------------------------------+
+|  101 | 20000,22000,28000,75000,30000 |
++------+-------------------------------+
+1 row in set (0.02 sec)
+
+mysql> select * from employees;
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| id  | name          | department      | salary | joining_date | address                      | city     | contact_no |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+| 101 | Dhiraj Bonde  | IT              |  20000 | 2000-02-03   | Amruta Heights, Warje        | Pune     | 9403943019 |
+| 102 | Hemant Wani   | 3D Printing     |  22000 | 2001-05-11   | Student Hostel, Akurdi       | Pune     | 9405239678 |
+| 103 | Nikhil Patil  | Lead Generation |  28000 | 2000-11-03   | Unity Chember, Jalgaon       | Jalgaon  | 7758880994 |
+| 104 | Amar Jadhav   | Food            |  75000 | 2019-08-17   | Jadhav House,Bhusawal        | Bhusawal | 8869458712 |
+| 105 | Milind Shinde | IT              |  30000 | 2020-05-27   | Karan Paradise, Pimple Gurav | Pune     | 8767838869 |
++-----+---------------+-----------------+--------+--------------+------------------------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select id,group_concat(salary)
+    -> from employees
+    -> group by id;
++-----+----------------------+
+| id  | group_concat(salary) |
++-----+----------------------+
+| 101 | 20000                |
+| 102 | 22000                |
+| 103 | 28000                |
+| 104 | 75000                |
+| 105 | 30000                |
++-----+----------------------+
+5 rows in set (0.04 sec)
+
+mysql>
