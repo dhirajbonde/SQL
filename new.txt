@@ -341,4 +341,114 @@ ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that 
 ;;
 from employee;
 '' at line 3
+mysql>select name, LENGTH(name) from employee;
++----------+--------------+
+| name     | LENGTH(name) |
++----------+--------------+
+| kartik   |            6 |
+| Umesh    |            5 |
+| Mohit    |            5 |
+| Devendra |            8 |
+| Tushar   |            6 |
+| Dipak    |            5 |
+| Sanket   |            6 |
++----------+--------------+
+7 rows in set (0.09 sec)
+
+mysql> create table station(id int primary key,city varchar(21),state varchar(2),lat_n int,long_w int);
+Query OK, 0 rows affected (3.48 sec)
+
+mysql> insert into station values(1,'Pune','MH',23,60),
+    -> (2,'Jalgaon','MH',56,30),
+    -> (3,'Bhopal','MP',89.90),
+    -> (4,'Goa','Goa',22,45),
+    -> (5,'Mumbai','MH',55,65);
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> insert into station values(1,'Pune','MH',23,60),
+    -> (2,'Jalgaon','MH',56,30),
+    -> (3,'Bhopal','MP',89,90),
+    -> (4,'Goa','Goa',22,45),
+    -> (5,'Mumbai','MH',55,65);
+ERROR 1406 (22001): Data too long for column 'state' at row 4
+mysql> insert into station values(1,'Pune','MH',23,60),
+    -> (2,'Jalgaon','MH',56,30),
+    -> (3,'Bhopal','MP',89,90),
+    -> (4,'Goa','Goa',22,45),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> insert into station values(1,'Pune','MH',23,60),
+    -> (2,'Jalgaon','MH',56,30),
+    -> (3,'Bhopal','MP',89,90),
+    -> (4,'Goa','GA',22,45),
+    -> (5,'Mumbai','MH',55,65);
+Query OK, 5 rows affected (0.18 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from station;
++----+---------+-------+-------+--------+
+| id | city    | state | lat_n | long_w |
++----+---------+-------+-------+--------+
+|  1 | Pune    | MH    |    23 |     60 |
+|  2 | Jalgaon | MH    |    56 |     30 |
+|  3 | Bhopal  | MP    |    89 |     90 |
+|  4 | Goa     | GA    |    22 |     45 |
+|  5 | Mumbai  | MH    |    55 |     65 |
++----+---------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select city, LENGTH(city) from station;
++---------+--------------+
+| city    | LENGTH(city) |
++---------+--------------+
+| Pune    |            4 |
+| Jalgaon |            7 |
+| Bhopal  |            6 |
+| Goa     |            3 |
+| Mumbai  |            6 |
++---------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select city, LENGTH(city) AS WordCount from station;
++---------+-----------+
+| city    | WordCount |
++---------+-----------+
+| Pune    |         4 |
+| Jalgaon |         7 |
+| Bhopal  |         6 |
+| Goa     |         3 |
+| Mumbai  |         6 |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select city, LENGTH(city) AS WordCount from station
+    -> order by WordCount ;
++---------+-----------+
+| city    | WordCount |
++---------+-----------+
+| Goa     |         3 |
+| Pune    |         4 |
+| Bhopal  |         6 |
+| Mumbai  |         6 |
+| Jalgaon |         7 |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select city, LENGTH(city) AS WordCount from station
+    -> order by WordCount ASC LIMIT 1;
++------+-----------+
+| city | WordCount |
++------+-----------+
+| Goa  |         3 |
++------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select city, LENGTH(city) AS WordCount from station
+    -> order by WordCount DESC LIMIT 1;
++---------+-----------+
+| city    | WordCount |
++---------+-----------+
+| Jalgaon |         7 |
++---------+-----------+
+1 row in set (0.00 sec)
+
 mysql>
