@@ -1,0 +1,344 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.20 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use jalgaonkar;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_jalgaonkar |
++----------------------+
+| department           |
+| emp1                 |
+| emp2                 |
+| emp3                 |
+| employees            |
+| faculty              |
+| student              |
++----------------------+
+7 rows in set (0.31 sec)
+
+mysql> create table employee(employee_id int,name varchar(20),months int,salary int);
+Query OK, 0 rows affected (3.85 sec)
+
+mysql> insert into employee values(1,'kartik',15,15000),
+    -> (2,'Umesh',16,14500),
+    -> (3,'Mohit',11,25000),
+    -> (4,'Devendra',8,22000),
+    -> (5,'Tushar',19,11000),
+    -> (6,'Dipak',5,9000),
+    -> (7,'Sanket',18,12000);
+Query OK, 7 rows affected (1.67 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee
+    -> ;
++-------------+----------+--------+--------+
+| employee_id | name     | months | salary |
++-------------+----------+--------+--------+
+|           1 | kartik   |     15 |  15000 |
+|           2 | Umesh    |     16 |  14500 |
+|           3 | Mohit    |     11 |  25000 |
+|           4 | Devendra |      8 |  22000 |
+|           5 | Tushar   |     19 |  11000 |
+|           6 | Dipak    |      5 |   9000 |
+|           7 | Sanket   |     18 |  12000 |
++-------------+----------+--------+--------+
+7 rows in set (0.03 sec)
+
+mysql> select (months*salary)
+    -> from employee;
++-----------------+
+| (months*salary) |
++-----------------+
+|          225000 |
+|          232000 |
+|          275000 |
+|          176000 |
+|          209000 |
+|           45000 |
+|          216000 |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee;
++---------------+
+| TotalEarnings |
++---------------+
+|        225000 |
+|        232000 |
+|        275000 |
+|        176000 |
+|        209000 |
+|         45000 |
+|        216000 |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*)from employee;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.35 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee
+    -> order by name;
++---------------+
+| TotalEarnings |
++---------------+
+|        176000 |
+|         45000 |
+|        225000 |
+|        275000 |
+|        216000 |
+|        209000 |
+|        232000 |
++---------------+
+7 rows in set (0.03 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee
+    -> order by TotalEarnings;
++---------------+
+| TotalEarnings |
++---------------+
+|         45000 |
+|        176000 |
+|        209000 |
+|        216000 |
+|        225000 |
+|        232000 |
+|        275000 |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> MAX(TotalEarnings)
+    -> from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MAX(TotalEarnings)
+from employee' at line 2
+mysql> select (months*salary) AS TotalEarnings
+    -> MAX(salary)
+    -> from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MAX(salary)
+from employee' at line 2
+mysql> select MAX
+
+mysql> select MAX(salary) from employee;
++-------------+
+| MAX(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.06 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> count(*)from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(*)from employee' at line 2
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*)from employee;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        225000 |        7 |
++---------------+----------+
+1 row in set (0.03 sec)
+
+mysql> select (months*salary) AS TotalEarnings ,
+    -> MAX(TotalEarnings)from employee;
+ERROR 1054 (42S22): Unknown column 'TotalEarnings' in 'field list'
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee
+    -> group by name;
++---------------+
+| TotalEarnings |
++---------------+
+|        225000 |
+|        232000 |
+|        275000 |
+|        176000 |
+|        209000 |
+|         45000 |
+|        216000 |
++---------------+
+7 rows in set (0.42 sec)
+
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee
+    -> group by TotalEarnings;
++---------------+
+| TotalEarnings |
++---------------+
+|        225000 |
+|        232000 |
+|        275000 |
+|        176000 |
+|        209000 |
+|         45000 |
+|        216000 |
++---------------+
+7 rows in set (0.02 sec)
+
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*) from employee;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        225000 |        7 |
++---------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*) from employee
+    -> group by TotalEarnings;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        225000 |        1 |
+|        232000 |        1 |
+|        275000 |        1 |
+|        176000 |        1 |
+|        209000 |        1 |
+|         45000 |        1 |
+|        216000 |        1 |
++---------------+----------+
+7 rows in set (0.04 sec)
+
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*) from employee
+    -> group by TotalEarnings DESC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC' at line 3
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*) from employee
+    -> group by TotalEarnings
+    -> order by TotalEarnings;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|         45000 |        1 |
+|        176000 |        1 |
+|        209000 |        1 |
+|        216000 |        1 |
+|        225000 |        1 |
+|        232000 |        1 |
+|        275000 |        1 |
++---------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings ,
+    -> count(*) from employee
+    -> order by TotalEarnings
+    -> group by TotalEarnings ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by TotalEarnings' at line 4
+mysql> select (months*salary) AS TotalEarnings
+    -> from employee
+    -> LIMIT 1;
++---------------+
+| TotalEarnings |
++---------------+
+|        225000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings,
+    -> count(*) from employee
+    -> group by TotalEarnings
+    -> order by TotalEarnings
+    -> LIMIT 1;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|         45000 |        1 |
++---------------+----------+
+1 row in set (0.06 sec)
+
+mysql> select (months*salary) AS TotalEarnings,
+    -> count(*) from employee
+    -> order by TotalEarnings
+    -> LIMIT 1;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        225000 |        7 |
++---------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings,
+    -> count(*) from employee
+    -> order by TotalEarnings desc
+    -> LIMIT 1;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        225000 |        7 |
++---------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select (months*salary) AS TotalEarnings,
+    -> count(*) from employee
+    -> group by TotalEarnings
+    -> order by TotalEarnings desc
+    -> LIMIT 1;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        275000 |        1 |
++---------------+----------+
+1 row in set (0.01 sec)
+
+mysql> select MAX(months*salary) AS TotalEarnings
+    -> from employee;
++---------------+
+| TotalEarnings |
++---------------+
+|        275000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(months*salary) AS TotalEarnings
+    -> from employee
+    -> ;
++---------------+
+| TotalEarnings |
++---------------+
+|        275000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(months*salary) AS TotalEarnings,
+    -> count(*)from employee;
++---------------+----------+
+| TotalEarnings | count(*) |
++---------------+----------+
+|        275000 |        7 |
++---------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(months*salary) AS TotalEarnings,
+    -> count(*)from employee
+    -> '
+    '> ;
+    '>
+    '> ;;
+    '> from employee;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+;
+
+;;
+from employee;
+'' at line 3
+mysql>
